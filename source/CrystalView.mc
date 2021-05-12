@@ -15,6 +15,7 @@ var gBackgroundColour;
 var gMeterBackgroundColour;
 var gHoursColour;
 var gMinutesColour;
+var gMoveBarColour;
 
 var gNormalFont;
 var gIconsFont;
@@ -170,6 +171,9 @@ class CrystalView extends Ui.WatchFace {
 		// Update hours/minutes colours after theme colours have been set.
 		updateHoursMinutesColours();
 
+		// Update move bar colour.
+		updateMoveBarColour();
+
 		if (CrystalApp has :checkPendingWebRequests) { // checkPendingWebRequests() can be excluded to save memory.
 			App.getApp().checkPendingWebRequests();
 		}
@@ -262,6 +266,18 @@ class CrystalView extends Ui.WatchFace {
 
 		var mco = App.getApp().getIntProperty("MinutesColourOverride", 0);
 		gMinutesColour = overrideColours[(mco < 0 || mco > 2) ? 0 : mco];
+	}
+
+	function updateMoveBarColour() {
+		var overrideColours = [
+			gThemeColour,       // FROM_THEME
+			Graphics.COLOR_RED, // THEME_RED_DARK
+		];
+
+		// #182 Protect against null or unexpected type e.g. String.
+		// #182 Protect against invalid integer values (still crashing with getIntProperty()).
+		var hco = App.getApp().getIntProperty("MoveBarColourOverride", 0);
+		gMoveBarColour = overrideColours[(hco < 0 || hco > 1) ? 0 : hco];
 	}
 
 	function onSettingsChangedSinceLastDraw() {

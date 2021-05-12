@@ -115,7 +115,7 @@ class MoveBar extends Ui.Drawable {
 			:height => mHeight,
 
 			// First palette colour appears to determine initial colour of buffer.
-			:palette => [gBackgroundColour, gMeterBackgroundColour, gThemeColour]
+			:palette => [gBackgroundColour, gMeterBackgroundColour, gMoveBarColour]
 		});
 		mBufferNeedsRecreate = false;
 		mBufferNeedsRedraw = true; // Ensure newly-created buffer is drawn next.
@@ -138,7 +138,7 @@ class MoveBar extends Ui.Drawable {
 
 			// Move bar at this level or greater, so show regardless of MoveBarStyle setting.
 			if (i <= currentMoveBarLevel) {
-				thisBarColour = gThemeColour;
+				thisBarColour = gMoveBarColour;
 
 			// Move bar below this level, so only show if MoveBarStyle setting is ALL_SEGMENTS.
 			} else if (moveBarStyle == 0 /* ALL_SEGMENTS */) {
